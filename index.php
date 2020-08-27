@@ -23,7 +23,7 @@ $results = json_decode($contents, true);
   <div class="container">
 
     <div class="input-container">
-    <form action="" method="post">
+    <form id="myForm" action="" method="post">
     <label for="city">Enter the city you're curious for:</label> </br>
       <input type="text" id="cityInput" name="cityInput" placeholder="Ghent" value="Ghent"> </br>
       <input type="submit" value="SUBMIT" id='submit'>
@@ -182,6 +182,86 @@ $results = json_decode($contents, true);
     ?>
   </div>
 
-  <script src="script.js"></script>
 
+<!-- SCRIPT -->
+    <script> 
+  const labelOne = "<?php echo ($results['list'][0]["dt_txt"])?>";
+  const labelTwo = "<?php echo ($results['list'][1]["dt_txt"])?>";
+  const labelThree = "<?php echo ($results['list'][2]["dt_txt"])?>";
+  const labelFour = "<?php echo ($results['list'][3]["dt_txt"])?>";
+  const labelFive = "<?php echo ($results['list'][4]["dt_txt"])?>";
+  const labelSix = "<?php echo ($results['list'][5]["dt_txt"])?>";
+  const labelSeven = "<?php echo ($results['list'][6]["dt_txt"])?>";
+  const labelEight = "<?php echo ($results['list'][7]["dt_txt"])?>";
+  const labelNine = "<?php echo ($results['list'][8]["dt_txt"])?>";
+
+  const datasetOne = <?php echo (round($results['list'][0]["main"]["temp"]))?>;
+  const datasetTwo = <?php echo (round($results['list'][1]["main"]["temp"]))?>;
+  const datasetThree = <?php echo (round($results['list'][2]["main"]["temp"]))?>;
+  const datasetFour = <?php echo (round($results['list'][3]["main"]["temp"]))?>;
+  const datasetFive = <?php echo (round($results['list'][4]["main"]["temp"]))?>;
+  const datasetSix = <?php echo (round($results['list'][5]["main"]["temp"]))?>;
+  const datasetSeven = <?php echo (round($results['list'][6]["main"]["temp"]))?>;
+  const datasetEight = <?php echo (round($results['list'][7]["main"]["temp"]))?>;
+  const datasetNine = <?php echo (round($results['list'][8]["main"]["temp"]))?>;
+
+
+  // Build a chart
+  let ctx = document.getElementById('myChart');
+  let myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [`${labelOne.slice(11, 16)}`, `${labelTwo.slice(11, 16)}`, `${labelThree.slice(11, 16)}`, `${labelFour.slice(11, 16)}`, `${labelFive.slice(11, 16)}`, `${labelSix.slice(11, 16)}`, `${labelSeven.slice(11, 16)}`, `${labelEight.slice(11, 16)}`, `${labelNine.slice(11, 16)}`],
+      datasets: [{
+        data: [datasetOne, datasetTwo, datasetThree, datasetFour, datasetFive, datasetSix, datasetSeven, datasetEight, datasetNine],
+        backgroundColor: 'rgba(255, 66, 14, 0.7)',
+        borderColor: 'rgba(255, 66, 14, 1)',
+        borderWidth: 1,
+      }, ]
+    },
+    options: {
+      legend: {
+        display: false,
+      },
+      scales: {
+        yAxes: [{
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            min: datasetOne - 15,
+            max: datasetOne + 15,
+            fontColor: 'rgba(255, 255, 255, 0.6)',
+            display: false,
+          }
+        }],
+        xAxes: [{
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            fontColor: 'rgba(255, 255, 255, 0.6)'
+          }
+        }],
+      },
+      plugins: {
+        datalabels: {
+          color: 'rgba(255, 66, 14, 1)',
+          align: 'top',
+          labels: {
+            title: {
+              font: {
+                size: '14',
+              }
+            }
+          }
+        },
+
+      }
+    },
+  });
+
+
+    </script>
   </body>
